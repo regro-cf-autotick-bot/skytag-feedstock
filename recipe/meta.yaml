@@ -6,12 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: c8716c5821f547151562d4cda44cf697c46d25d37b5dd78a79783141b20c1e62
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   entry_points:
     - skytag = skytag.cl_utils:main
@@ -19,9 +19,9 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.9
+    - python {{ python_min }}
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - pyyaml
     - fundamentals
     - astropy
@@ -30,6 +30,8 @@ requirements:
     - pandas
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - skytag
 
